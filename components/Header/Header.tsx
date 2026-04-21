@@ -1,3 +1,4 @@
+import { UserButton } from '@neondatabase/auth/react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,8 +9,7 @@ const Header = () => {
                 <Link href="/">Event Planner</Link>
                 <nav className='flex items-center gap-4'>
                     <Link href="/events" className='px-3 py-2 rounded-md text-sm font-medium hover:bg-(--foreground)/10'>Dashboard</Link>
-                    <Link href="/about" className='px-3 py-2 rounded-md text-sm font-medium hover:bg-(--foreground)/10'>About</Link>
-                    <Link href="/contact" className='px-3 py-2 rounded-md text-sm font-medium hover:bg-(--foreground)/10'>Contact</Link>
+                    <UserButton size="icon" />
                 </nav>
             </div>
         </header>
