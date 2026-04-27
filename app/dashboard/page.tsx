@@ -1,9 +1,13 @@
-import React from 'react'
+import DashboardContent from "@/components/DashboardContent/DashboardContent";
+import { getSession } from "@/lib/auth/server";
 
-const DashboardPage = () => {
+
+const DashboardPage = async () => {
+
+  const session = await getSession();
   return (
     <div>
-      dashboard page
+      <DashboardContent userId={session?.data?.user?.id} />
     </div>
   )
 }
