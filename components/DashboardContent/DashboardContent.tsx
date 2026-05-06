@@ -4,9 +4,24 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Badge } from '../ui/badge'
+import type { RSVPStatus as PrismaRSVPStatus } from '@/app/generated/prisma/enums'
 
 interface Props {
     userId: string | undefined
+}
+
+export const countByStatus = (rsvps: { status: PrismaRSVPStatus }[]) => {
+    let goingCount = 0
+    let maybeCount = 0
+    let notGoingCount = 0
+
+    for (const rsvp of rsvps) {
+        if (rsvp.status === "going") goingCount+=1
+        else if (rsvp.status === "maybe") maybeCount+=1
+        else if (rsvp.status === "not_going") notGoingCount+=1
+    }
+
+    return { goingCount, maybeCount, notGoingCount }
 }
 
 
@@ -20,7 +35,7 @@ const DashboardContent = async ({ userId }: Props) => {
             title: true,
             eventDate: true,
             location: true,
-            // rsvps: { select: { status: true }},
+            rsvps: { select: { status: true }},
         }
     })
 
@@ -29,6 +44,7 @@ const DashboardContent = async ({ userId }: Props) => {
         title: row.title,
         eventDate: row.eventDate ? row.eventDate.toISOString() : null,
         location: row.location,
+        ...countByStatus(row.rsvps)
     }))
 
     return (
@@ -65,9 +81,9 @@ const DashboardContent = async ({ userId }: Props) => {
                                     </Button>
                                 </div>
                                 <div className='flex flex-wrap gap-1 text-xs'>
-                                    <Badge variant="secondary"/>
-                                    <Badge variant="secondary" />
-                                    <Badge variant="secondary" />
+                                    <Badge variant="default">Going: {event.goingCount}</Badge>
+                                    <Badge variant="secondary">Maybe: {event.maybeCount}</Badge>
+                                    <Badge variant="outline">Not Going: {event.notGoingCount}</Badge>
                                 </div>
                                 <p>
                                     {event.eventDate ? new Date(event.eventDate).toLocaleDateString() : "No date selected"}
