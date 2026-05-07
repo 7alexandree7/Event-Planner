@@ -1,22 +1,16 @@
-import InviteRsvpContent from '@/components/InviteRsvpContent/InviteRsvpContent'
-import React from 'react'
+import { InviteRsvpContent } from "@/components/InviteRsvpContent/InviteRsvpContent";
 
-type InvitePageProps = {
-    params: {token: string}
-    searchParams: {submitted: string}
-}
-
-const InvitePage = async ({ params, searchParams }: InvitePageProps)=> {
-
-    const { token } = params
-    const query = searchParams
-
+export default async function InvitePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ token: string }>;
+  searchParams: Promise<{ submitted?: string }>;
+}) {
+  const { token } = await params;
+  const query = await searchParams;
 
   return (
-    <div>
-        <InviteRsvpContent token={token} submitted={query.submitted === "1"} />
-    </div>
-  )
+    <InviteRsvpContent token={token} submitted={query.submitted === "1"} />
+  );
 }
-
-export default InvitePage
