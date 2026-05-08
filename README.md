@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Event Planner
 
-## Getting Started
+Uma aplicação Full Stack para criação e gerenciamento de eventos com sistema de confirmação de presença (RSVP).
 
-First, run the development server:
+---
+
+## 📌 Sobre o projeto
+
+O Event Planner foi desenvolvido para permitir que usuários criem eventos, gerenciem convites e acompanhem confirmações de presença através de links exclusivos compartilháveis.
+
+O sistema possui autenticação, dashboard de gerenciamento e um fluxo completo de RSVP para convidados.
+
+---
+
+## ✨ Funcionalidades
+
+- Autenticação de usuários
+- Criação de eventos
+- Dashboard de eventos
+- Geração de links exclusivos de convite
+- Sistema RSVP
+- Atualização automática de confirmação
+- Contagem de participantes
+- Rotas dinâmicas
+- Validação de formulários
+- Integração com banco de dados
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+### Front-end
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+
+### Back-end
+- Next.js Server Actions
+- Prisma ORM
+- PostgreSQL
+
+---
+
+## 📂 Estrutura do projeto
+
+```bash
+app/
+├── account/
+├── api/
+├── auth/
+├── dashboard/
+├── events/
+├── invite/
+
+components/
+├── DashboardContent/
+├── EventDetailsContent/
+├── InviteRsvpContent/
+└── ui/
+
+lib/
+├── actions/
+├── auth/
+├── prisma.ts
+└── utils.ts
+
+prisma/
+└── schema.prisma
+```
+
+---
+
+## 🔄 Fluxo do sistema
+
+### Criação de evento
+O usuário autenticado cria um evento preenchendo:
+- título
+- descrição
+- localização
+- data do evento
+
+### Geração de convite
+Após criar o evento, o sistema gera um link exclusivo utilizando token único.
+
+Exemplo:
+```bash
+/invite/[token]
+```
+
+### RSVP
+Os convidados podem:
+- informar nome
+- informar email
+- escolher presença:
+  - Going
+  - Maybe
+  - Not Going
+
+As respostas são salvas e atualizadas automaticamente utilizando `upsert` do Prisma.
+
+---
+
+## 🗄️ Banco de dados
+
+O projeto utiliza PostgreSQL com Prisma ORM.
+
+### Principais entidades
+- User
+- Event
+- EventInvite
+- EventRsvp
+
+---
+
+## 📚 Conceitos praticados
+
+- Server Components
+- Server Actions
+- Rotas dinâmicas
+- Query Params
+- Relacionamentos no banco
+- Organização de arquitetura
+- Autenticação
+- Validação de formulários
+- Full Stack com Next.js
+
+---
+
+## 🚀 Como executar o projeto
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Configurar variáveis ambiente
+
+Criar arquivo `.env`
+
+```env
+DATABASE_URL=""
+```
+
+### Executar migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### Rodar o projeto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎯 Objetivo do projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O principal objetivo desse projeto foi aprofundar conhecimentos em desenvolvimento Full Stack utilizando o ecossistema moderno do Next.js, trabalhando integração entre front-end, back-end e banco de dados em uma única aplicação.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 👨‍💻 Autor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Desenvolvido por HYPER 🚀
